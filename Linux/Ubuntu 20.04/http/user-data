@@ -1,0 +1,37 @@
+#cloud-config
+autoinstall:
+    version: 1
+    early-commands:
+        # Stop ssh for packer
+        - sudo systemctl stop ssh
+    locale: fr_FR
+    keyboard:
+        layout: fr
+        variant: fr
+    identity:
+        hostname: ubuntu-server
+        username: ubuntu
+        #Password ubuntu
+        password: '$6$rounds=4096$IP4SMPOgBDyofPF$xpmF2V3b.mkaK.0dPyC7UkR/gy/b9RzQ7va6SYj4AF5kz1L7m0HwGAXIa465JXcyW7650ekg32Ey.gd3/8eUX.'
+    ssh:
+        install-server: yes
+        allow-pw: yes
+    storage:
+        layout:
+            name: direct
+    apt:
+        primary:
+            - arches: [i386, amd64]
+              uri: "http://fr.archive.ubuntu.com/ubuntu/"
+    user-data:
+      disable_root: false
+    late-commands:
+      - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
+      - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /target/etc/ssh/sshd_config
+      - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+      - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu
+      - curtin in-target --target=/target -- apt-get update
+      - curtin in-target --target=/target -- apt-get upgrade --yes
+      - curtin in-target --target=/target -- apt-get install -y apache2 git haproxy
+      - curtin in-target --target=/target -- apt-get install -y wget apt-transport-https software-properties-common
+
