@@ -61,6 +61,11 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
+      "execute_command": "echo 'debian' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/vyos_builder.sh"
+    }
+    ,{
       "inline": [
         "echo 'Packer Template Build -- Complete'"
       ],
@@ -68,4 +73,3 @@
     }
   ]
 }
-
