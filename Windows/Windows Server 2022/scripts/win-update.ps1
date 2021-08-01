@@ -7,7 +7,6 @@ Write-Output "***** Starting PSWindowsUpdate Installation"
 
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module -Name PSWindowsUpdate -Force
-Install-Module -Name Invoke-CommandAs -Force
 
 if (Get-ChildItem "C:\Program Files\WindowsPowerShell\Modules\PSWindowsUpdate") {
     Write-Output "***** PSWindowsUpdate installed successfully"

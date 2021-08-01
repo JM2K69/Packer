@@ -68,7 +68,7 @@
                     <!-- Get-WindowsImage -ImagePath D:\sources\install.wim -->
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/INDEX </Key>
-                            <Value>3</Value>
+                            <Value>6</Value>
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
@@ -165,6 +165,7 @@
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
+
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\config-winrm.ps1</CommandLine>
                     <Description>Config Winrm</Description>

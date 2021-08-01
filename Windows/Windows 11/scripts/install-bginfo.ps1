@@ -69,8 +69,7 @@ If (!(Test-Path -Path $bgInfoFolder)){New-Item -ItemType $itemType -Force -Path 
 
 ## Download, save and extract latest BGInfo software to C:\BgInfo
 
-Import-Module BitsTransfer
-Start-BitsTransfer -Source $bgInfoUrl -Destination $bgInfoZip
+Invoke-WebRequest -Uri $bgInfoUrl  -Out $bgInfoZip
 Expand-Archive -LiteralPath $bgInfoZip -DestinationPath $bgInfoFolder -Force
 Remove-Item $bgInfoZip
 Remove-Item $bgInfoEula
@@ -108,13 +107,5 @@ Write-Host ($writeEmptyLine + "# BgInfo has ran for the first time" + $writeSepe
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Exit PowerShell window 2 seconds after completion
-
-Write-Host ($writeEmptyLine + "# Script completed, the PowerShell window will close in 2 seconds" + $writeSeperator + $time)`
--foregroundcolor $foregroundColor2 $writeEmptyLine
-Start-Sleep 2 
-stop-process -Id $PID 
-
-##-------------------------------------------------------------------------------------------------------------------------------------------------------
-
+Exit 0
 

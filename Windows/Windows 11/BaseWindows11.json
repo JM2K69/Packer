@@ -17,7 +17,7 @@
       "boot_command": [
         "<spacebar>"
       ],
-      "guest_os_type": "windows9Server64Guest",
+      "guest_os_type": "windows9_64Guest",
       "host": "{{ user `ovftool_deploy_esxi` }}",
       "boot_wait": "2s",
       "insecure_connection": true,
@@ -38,7 +38,9 @@
           "winrm_timeout": "4h",
           "floppy_files": [
             "scripts/uefi/gui/autounattend.xml",
-            "scripts/uefi/gui/vmware-tools.ps1"
+            "scripts/uefi/gui/vmware-tools.ps1",
+            "scripts/uefi/gui/config-winrm.ps1",
+            "scripts/uefi/gui/install-winget.ps1"
           ],
           "shutdown_command": "shutdown /s /t 5 /f /d p:4:1 /c \"Packer Shutdown\"",
           "shutdown_timeout": "30m",
@@ -52,7 +54,7 @@
       "username": "{{ user `ovftool_deploy_vcenter_username` }}",
       "vcenter_server": "{{ user `ovftool_deploy_vcenter` }}",
       "vm_name": "{{ user `vm_name` }}",
-      "notes": "Base Windows server 2019 : {{ user `version` }} @JM2K69 | login : {{ user `guest_username` }} MDP : {{ user `guest_password` }} "
+      "notes": "Base Windows 10 Entreprise : {{ user `version` }} @JM2K69 | login : {{ user `winrm_username` }} MDP : {{ user `winrm_password` }} "
     }
   ],
   "provisioners": [
@@ -62,11 +64,19 @@
     },
     {
       "type": "powershell",
-      "scripts": ["scripts/Install-bginfo.ps1"]
+      "scripts": ["scripts/Disable_UAC.ps1"]
     },
     {
       "type": "windows-restart",
       "restart_timeout": "30m"
+    },
+    {
+      "type": "powershell",
+      "scripts": ["scripts/install-bginfo.ps1"]
+    },
+    {
+      "type": "powershell",
+      "scripts": ["scripts/Invoke-RemoveBuiltinApps.ps1"]
     },
     {
       "type": "powershell",
@@ -81,13 +91,21 @@
       "scripts": ["scripts/win-update.ps1"]
     },
     {
-      "type": "windows-restart",
-      "restart_timeout": "30m"
+      "type":"powershell",
+      "scripts": ["scripts/Wingetpackages.ps1"],
+      "pause_before": "45s"
     },
     {
       "type": "powershell",
-      "scripts": ["scripts/cleanup.ps1"],
-      "pause_before": "1m"
+      "scripts": ["scripts/disable-autologin.ps1"]
+    },
+    {
+      "type": "powershell",
+      "scripts": ["scripts/Enable_UAC.ps1"]
+    },
+    {
+      "type": "powershell",
+      "scripts": ["scripts/cleanup.ps1"]
     }
   ]
 }

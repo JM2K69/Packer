@@ -1,0 +1,11 @@
+{
+  "version": "0.1.1",
+  "description": "Base windows 11",
+  "vm_name": "GI_Windows_11_Ent",
+  "iso_checksum": "30aacb744afe241fb3a5ed174d5bc320472f557eb9185253f950edd3e4c48580",
+  "iso_url": "http://localhost:8080/22000.1.210604-1628.CO_RELEASE_CLIENTMULTI_X64FRE_EN-US.ISO",
+  "numvcpus": "4",
+  "ramsize": "8192",
+  "winrm_username": "Administrator",
+  "winrm_password": "123+aze"
+}

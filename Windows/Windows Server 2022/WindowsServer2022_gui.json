@@ -1,0 +1,11 @@
+{
+  "version": "0.1.1",
+  "description": "Base windows server 2022 Standard GUI",
+  "vm_name": "Base_Server2K22_GUI",
+  "iso_checksum": "fbff648eb51d8212265468bcbccf2b970499686fab79a2fb0b83dcf2f1527b75",
+  "iso_url": "http://localhost:8080/20348.112.210706-0500.FE_RELEASE_SVC_PROD1_SERVER_X64FRE_EN-US.ISO",
+  "numvcpus": "4",
+  "ramsize": "8192",
+  "winrm_username": "Administrator",
+  "winrm_password": "123+aze"
+}
